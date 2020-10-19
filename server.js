@@ -1,11 +1,20 @@
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const projectRouter = require('./routes/projectRouter');
+const resumeRouter = require('./routes/resumeRouter');
 
 const hostname = 'localhost';
 const port = 3000;
 
 const app = express();
 app.use(morgan('dev'));
+
+app.use(bodyParser.json());
+
+app.use('/resume', resumeRouter);
+app.use('/projects', projectRouter);
+
 
 app.use(express.static(__dirname + '/public'));
 
